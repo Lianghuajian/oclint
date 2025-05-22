@@ -341,9 +341,9 @@ static void constructCompilers(std::vector<oclint::CompilerInstance *> &compiler
 
         if(chdir(targetDir.c_str()))
         {
-            throw oclint::GenericException("Cannot change dictionary into \"" +
-                targetDir + "\", "
-                "please make sure the directory exists and you have permission to access!");
+            LOG_VERBOSE("Cannot change directory into \"" + targetDir + "\", "
+                        "please make sure the directory exists and you have permission to access!");
+            continue;
         }
 
         clang::CompilerInvocation *compilerInvocation =
@@ -375,9 +375,9 @@ static void invokeClangStaticAnalyzer(
         std::string targetDir = stringReplace(compileCommand.second.Directory, "\\ ", " ");
         if (chdir(targetDir.c_str()))
         {
-            throw oclint::GenericException("Cannot change dictionary into \"" +
-                targetDir + "\", "
-                "please make sure the directory exists and you have permission to access!");
+            LOG_VERBOSE("Cannot change directory into \"" + targetDir + "\", "
+                        "please make sure the directory exists and you have permission to access!");
+            continue;
         }
         std::vector<std::string> adjustedArguments =
             adjustArguments(compileCommand.second.CommandLine, compileCommand.first);
