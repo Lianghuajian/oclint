@@ -70,7 +70,7 @@ SET(CLANG_LIBRARIES
     clangAST
     clangLex
     clangBasic
-    clangSupport)
+    clangAPINotes)
 
 IF(TEST_BUILD)
     ENABLE_TESTING()
