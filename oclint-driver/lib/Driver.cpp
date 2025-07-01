@@ -59,7 +59,7 @@
 #include <llvm/ADT/StringRef.h>
 #include <llvm/Option/ArgList.h>
 #include <llvm/Support/FileSystem.h>
-#include <llvm/Support/Host.h>
+#include <llvm/TargetParser/Host.h>
 #include <llvm/Support/raw_ostream.h>
 #include <clang/Basic/Diagnostic.h>
 #include <clang/Driver/Compilation.h>
