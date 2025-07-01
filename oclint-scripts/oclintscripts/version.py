@@ -5,6 +5,7 @@ import os
 
 from oclintscripts import path
 
+
 def dev_version():
     current_working_folder = os.getcwd()
     try:
@@ -17,11 +18,18 @@ def dev_version():
         path.cd(current_working_folder)
         return "src"
 
+
 def oclint_version():
     return "24.0"
+
 
 def oclint_dev_version():
     return oclint_version() + '.dev.' + dev_version()
 
+
 def llvm_version():
     return "16.0.0"
+
+
+def llvm_major_version():
+    return llvm_version().split(".")[0]

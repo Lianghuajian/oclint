@@ -9,11 +9,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, ubuntu-18.04]
+        os: [ubuntu-22.04, ubuntu-20.04]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
       - run: |
+          sudo apt-get -y install curl zlib1g-dev libzstd-dev libncurses-dev
           wget https://apt.llvm.org/llvm.sh
           chmod +x llvm.sh
           sudo ./llvm.sh 16
@@ -23,7 +24,7 @@ jobs:
           ./build -no-ninja -llvm-root=/usr/lib/llvm-16
           ./bundle -archive -llvm-root=/usr/lib/llvm-16
   build-on-mac:
-    runs-on: macos-11
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v2
       - run: |
@@ -32,5 +33,5 @@ jobs:
           brew install llvm@16
       - run: |
           cd oclint-scripts
-          ./build -no-ninja -llvm-root=/usr/local/opt/llvm\@16
-          ./bundle -archive -llvm-root=/usr/local/opt/llvm\@16
+          ./build -no-ninja -llvm-root=/opt/homebrew/opt/llvm\@16
+          ./bundle -archive -llvm-root=/opt/homebrew/opt/llvm\@16

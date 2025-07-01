@@ -53,7 +53,7 @@ STRING(REGEX MATCH "[0-9]+\\.[0-9]+(\\.[0-9]+)?" LLVM_VERSION_RELEASE ${LLVM_PAC
 MESSAGE(STATUS "Found LLVM LLVM_PACKAGE_VERSION: ${LLVM_PACKAGE_VERSION} - LLVM_VERSION_RELEASE: ${LLVM_VERSION_RELEASE}")
 MESSAGE(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
 
-LLVM_MAP_COMPONENTS_TO_LIBNAMES(REQ_LLVM_LIBRARIES asmparser bitreader instrumentation mcparser option support frontendopenmp WindowsDriver)
+LLVM_MAP_COMPONENTS_TO_LIBNAMES(REQ_LLVM_LIBRARIES asmparser bitreader instrumentation mcparser option support frontendopenmp windowsdriver)
 
 SET(CLANG_LIBRARIES
     clangToolingCore
@@ -69,15 +69,16 @@ SET(CLANG_LIBRARIES
     clangASTMatchers
     clangAST
     clangLex
-    clangBasic)
+    clangBasic
+    clangSupport)
 
 IF(TEST_BUILD)
     ENABLE_TESTING()
-    IF(NOT APPLE)
-        ADD_DEFINITIONS(
-            --coverage
-            )
-    ENDIF()
+    # IF(NOT APPLE)
+    #     ADD_DEFINITIONS(
+    #         --coverage
+    #         )
+    # ENDIF()
 
     INCLUDE_DIRECTORIES(
         ${GOOGLETEST_SRC}/googlemock/include
@@ -99,15 +100,15 @@ IF(TEST_BUILD)
     ENDIF()
 
     # Setup the path for profile_rt library
-    STRING(TOLOWER ${CMAKE_SYSTEM_NAME} COMPILER_RT_SYSTEM_NAME)
-    LINK_DIRECTORIES(${LLVM_LIBRARY_DIRS}/clang/${LLVM_VERSION_RELEASE}/lib/${COMPILER_RT_SYSTEM_NAME})
-    IF(APPLE)
-        SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
-    ELSEIF(${CMAKE_SYSTEM_PROCESSOR} MATCHES "aarch64")
-        SET(PROFILE_RT_LIBS clang_rt.profile-aarch64 --coverage)
-    ELSE()
-        SET(PROFILE_RT_LIBS clang_rt.profile-x86_64 --coverage)
-    ENDIF()
+    # STRING(TOLOWER ${CMAKE_SYSTEM_NAME} COMPILER_RT_SYSTEM_NAME)
+    # LINK_DIRECTORIES(${LLVM_LIBRARY_DIRS}/clang/${LLVM_VERSION_RELEASE}/lib/${COMPILER_RT_SYSTEM_NAME})
+    # IF(APPLE)
+    #     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+    # ELSEIF(${CMAKE_SYSTEM_PROCESSOR} MATCHES "aarch64")
+    #     SET(PROFILE_RT_LIBS clang_rt.profile-aarch64 --coverage)
+    # ELSE()
+    #     SET(PROFILE_RT_LIBS clang_rt.profile-x86_64 --coverage)
+    # ENDIF()
 ENDIF()
 
 IF(DOC_GEN_BUILD)
