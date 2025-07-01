@@ -5,6 +5,7 @@ SET(CMAKE_MODULE_PATH
     ${CMAKE_MODULE_PATH}
     "${CMAKE_CURRENT_SOURCE_DIR}/../oclint-core/cmake"
     )
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 
 INCLUDE(OCLintConfig)
 
@@ -47,6 +48,8 @@ TARGET_LINK_LIBRARIES(oclint-${OCLINT_VERSION_RELEASE}
     ${CLANG_LIBRARIES}
     ${REQ_LLVM_LIBRARIES}
     ${CMAKE_DL_LIBS}
+    "-lc++" 
+    "-lc++abi"
     )
 
 IF(TEST_BUILD)
