@@ -137,7 +137,7 @@ static const llvm::opt::ArgStringList *getCC1Arguments(clang::driver::Compilatio
     const clang::driver::JobList &jobList = compilation->getJobs();
 
     auto jobSize = jobList.size();
-
+    
     if (jobSize == 0)
     {
         LOG_VERBOSE("Error: compilation contains no job");
@@ -162,8 +162,8 @@ static const llvm::opt::ArgStringList *getCC1Arguments(clang::driver::Compilatio
     if (jobSize > 1 && !offloadCompilation)
     {
         LOG_VERBOSE("Error: compilation contains multiple jobs");
-        throw oclint::GenericException("compilation contains multiple jobs:\n" +
-                                        compilationJobsToString(jobList) + "\n");
+        // throw oclint::GenericException("compilation contains multiple jobs:\n" +
+        //                                 compilationJobsToString(jobList) + "\n");
     }
 
     if (!clang::isa<clang::driver::Command>(*jobList.begin()))
