@@ -8,23 +8,30 @@ scripts_dir = os.path.dirname(__python_package_dir)
 root_dir = os.path.dirname(scripts_dir)
 build_root = os.path.join(root_dir, "build")
 
+
 def module_source_dir(module_name):
     return os.path.join(root_dir, module_name)
+
 
 def oclint_module_source_dir(module_name):
     return module_source_dir("oclint-" + module_name)
 
+
 def module_build_dir(module_name):
     return os.path.join(build_root, module_name)
+
 
 def oclint_module_build_dir(module_name):
     return module_build_dir("oclint-" + module_name)
 
+
 def oclint_module_test_dir(module_name):
     return module_build_dir("oclint-" + module_name + "-test")
 
+
 def oclint_module_dogfooding_dir(module_name):
     return module_build_dir("oclint-" + module_name + "-dogfooding")
+
 
 class source:
     clang_dir = module_source_dir("llvm")
@@ -38,6 +45,7 @@ class source:
 
     json_compilation_database_dir = oclint_module_source_dir("json-compilation-database")
     xcodebuild_dir = oclint_module_source_dir("xcodebuild")
+
 
 class build:
     clang_build_dir = module_build_dir('llvm')
@@ -63,6 +71,7 @@ class build:
     reporters_dogfooding_dir = oclint_module_dogfooding_dir("reporters")
     driver_dogfooding_dir = oclint_module_dogfooding_dir("driver")
 
+
 class url:
     googletest = 'https://github.com/google/googletest.git'
 
@@ -78,22 +87,28 @@ class url:
 def cd(dir_path):
     os.chdir(dir_path)
 
+
 def mv(src_path, dst_path):
     os.rename(src_path, dst_path)
+
 
 def rm_f(dir_path):
     if is_dir(dir_path):
         shutil.rmtree(dir_path)
 
+
 def mkdir_p(dir_path):
     if not is_dir(dir_path):
         os.makedirs(dir_path)
 
+
 def cp(src_path, dst_path):
     shutil.copy2(src_path, dst_path)
 
+
 def cp_r(src_path, dst_path):
     shutil.copytree(src_path, dst_path)
+
 
 def is_dir(dir_path):
     return os.path.isdir(dir_path)
